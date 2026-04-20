@@ -48,3 +48,5 @@ export const deleteSession = async (user_id: number) => {
 
   return result.rowCount;
 };
+
+

@@ -4,6 +4,8 @@ import express from "express";
 import cors from "cors";
 
 import SessionRoutes from "./routes/session.routes";
+import AuthRoutes from "./routes/auth.routes";
+import * as AuthMiddleware from "./middleware/auth";
 
 const app = express();
 app.use(cors());
@@ -15,6 +17,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use('/sessions', SessionRoutes);
+app.use("/sessions", AuthMiddleware.authenticateToken, SessionRoutes);
+app.use("/auth", AuthRoutes);
 
 export default app;
