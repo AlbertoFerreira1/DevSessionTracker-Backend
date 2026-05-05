@@ -5,7 +5,7 @@ export const getSessionsByUser = async (
   user_id: number,
 ): Promise<Sessions[]> => {
   const query = `
-    SELECT * from Sessions 
+    SELECT * from "Sessions" 
     WHERE user_id = $1
     `;
 
@@ -21,7 +21,7 @@ export const addNewSession = async (
   newSessionData: NewSession,
 ): Promise<number> => {
   const query = `
-    INSERT INTO Sessions (date,project_name,duration_minutes,topic,notes,blockers,focus_score,user_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) returning id
+    INSERT INTO "Sessions" (date,project_name,duration_minutes,topic,notes,blockers,focus_score,user_id) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) returning id
     `;
 
   const result = await pool.query(query, [

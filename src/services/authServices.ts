@@ -21,7 +21,7 @@ export const login = async (userData: LoginData): Promise<LoginResponse> => {
 
   const isPasswordValid = await bcrypt.compare(
     userData.password,
-    user.password_hash,
+    user.password,
   );
 
   if (!isPasswordValid) {
@@ -44,6 +44,7 @@ export const login = async (userData: LoginData): Promise<LoginResponse> => {
     token,
     userData: {
       username: user.username,
+      id: user.id
     },
   };
 };

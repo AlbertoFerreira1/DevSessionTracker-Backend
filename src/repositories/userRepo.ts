@@ -2,7 +2,7 @@ import pool from "../db";
 
 export const findUserForLogin = async (username: string) => {
   const query = `
-SELECT username,password_hash from users where
+SELECT username,password,id from "Users" where
 username = $1
 `;
 

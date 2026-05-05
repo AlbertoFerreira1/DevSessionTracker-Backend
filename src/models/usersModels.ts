@@ -1,6 +1,7 @@
 export interface LoginData {
     username:string;
     password?: string;
+    id?: number;
 }
 
 export interface LoginResponse {
