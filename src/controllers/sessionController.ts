@@ -58,7 +58,7 @@ export const deleteSession = async (
     const rowCount = await SessionServices.deleteSession(user_id);
 
     if (rowCount === 0) {
-      res.status(404).json({
+      res.status(403).json({
         success: false,
         message: "Session not found",
       });
@@ -71,6 +71,30 @@ export const deleteSession = async (
       data: rowCount,
     });
     return;
+  } catch (error) {
+    next(error);
+    return;
+  }
+};
+
+export const getMonthlySessions = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const user_id = Number(req.params.user_id);
+    const result = await SessionServices.getMonthlySessions(user_id);
+    if (!result || result.length === 0) {
+      res.status(403).json({
+        success: false,
+        message: "Sessions not found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      result,
+    });
   } catch (error) {
     next(error);
     return;

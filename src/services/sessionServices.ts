@@ -31,3 +31,19 @@ export const deleteSession = async (user_id: number):Promise<number | null> => {
   const rowCount = await SessionRepo.deleteSession(user_id);
   return rowCount;
 };
+
+export const getMonthlySessions = async (user_id: number):Promise<Sessions[]> => {
+  if(!user_id) {
+    throw new ApiError(400, 'No user provided');
+  }
+
+  const date = new Date();
+  const month = date.getMonth();
+  const year = date.getFullYear();
+  const firstDayOfTheMonth = `01-${month}-${year}`;
+  console.log(firstDayOfTheMonth);
+
+  const result = await SessionRepo.getMonthlySessions(user_id,firstDayOfTheMonth);
+  return result ;
+
+}

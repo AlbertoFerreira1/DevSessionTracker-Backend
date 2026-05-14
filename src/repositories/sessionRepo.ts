@@ -40,7 +40,7 @@ export const addNewSession = async (
 
 export const deleteSession = async (user_id: number) => {
   const query = `
-    DELETE FROM Sessions 
+    DELETE FROM "Sessions" 
     WHERE user_id = $1
     `;
 
@@ -48,5 +48,15 @@ export const deleteSession = async (user_id: number) => {
 
   return result.rowCount;
 };
+
+export const getMonthlySessions = async(user_id: number, firstDayOfTheMonth:string) => {
+ const query = `SELECT * from "Sessions"
+ where user_id = $1 
+ AND date > $2`;
+ const result = await pool.query(query, [user_id,firstDayOfTheMonth]);
+
+ return result.rows;
+
+}
 
 
